@@ -1,8 +1,18 @@
 ![goStack](.github/gostack.png)
 <h1 align="center">
   🚀 Conceitos ReactJS 🚀
-</h1>
+  <p align="center">
+  <img src="https://img.shields.io/badge/tech-front--end-green" />
 
+  <a href="https://reactjs.org/">
+    <img src="https://img.shields.io/badge/framework-reactjs-blue" />
+  </a>
+
+  <a href="https://github.com/Rocketseat">
+    <img src="https://img.shields.io/badge/source-rocketseat-blueviolet" />
+  </a>
+  </p>
+</h1>
 <p>
   Esse é o cliente Web em ReactJS, para a api desenvolvida no <a href="https://github.com/lucascprazeres/conceitos-nodejs">desafio anterior</a>. Com suporte para criar, deletar e curtir os repositórios fake.
 </p>
