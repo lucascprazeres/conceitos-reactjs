@@ -6,6 +6,8 @@ import api from "./services/api";
 function App() {
   const [repositories, setRepositories] = useState([]);
 
+  const [title, setTitle] = useState('');
+
   useEffect(() => {
     api.get('repositories')
       .then(response => setRepositories(response.data))
@@ -14,9 +16,20 @@ function App() {
 
   useEffect(() => console.log(repositories), []);
 
-  async function handleAddRepository() {
+  function handleInputChange(event) {
+    const title = event.target.value;
+    setTitle(title);
+  }
+
+  async function handleAddRepository(event) {
+    event.preventDefault();
+
+    const inputField = document.getElementById('title');
+
+    const title = inputField.value;
+
     const repositoryData = {
-      title: "Desafio1",
+      title: title,
       url: "http://github.com/desafio1",
       techs: ["Nodejs", "express"]
     }
@@ -47,6 +60,16 @@ function App() {
 
   return (
     <div>
+      <form>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={handleInputChange}
+          placeholder="Repository Title"
+        />
+        <button onClick={handleAddRepository}>Adicionar</button>
+      </form>
       <ul data-testid="repository-list">
         {repositories.map(repository => (
           <li key={repository.id}>
@@ -58,8 +81,6 @@ function App() {
           </li>
         ))}
       </ul>
-
-      <button onClick={handleAddRepository}>Adicionar</button>
     </div>
   );
 }
