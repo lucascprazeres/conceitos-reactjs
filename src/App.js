@@ -14,11 +14,24 @@ function App() {
       .catch(error => console.log(error));
   }, []);
 
-  useEffect(() => console.log(repositories), []);
-
   function handleInputChange(event) {
     const title = event.target.value;
     setTitle(title);
+  }
+
+  async function handleLikeRepository(id) {
+    const response = await api.post(`repositories/${id}/like`);
+    const updatedRepository = response.data;
+
+    const matchedRepositoryIndex = repositories.findIndex(repo => repo.id === id);
+
+    if (matchedRepositoryIndex >= 0) {
+      const updatedRepositoryList = [...repositories];
+
+      updatedRepositoryList[matchedRepositoryIndex] = updatedRepository;
+
+      setRepositories(updatedRepositoryList);
+    }
   }
 
   async function handleAddRepository(event) {
@@ -75,9 +88,12 @@ function App() {
           <li key={repository.id}>
             {repository.title}
 
+            <button onClick={() => handleLikeRepository(repository.id)}>
+              Like {repository.likes} 👍
+            </button>
             <button onClick={() => handleRemoveRepository(repository.id)}>
               Remover
-          </button>
+            </button>
           </li>
         ))}
       </ul>
