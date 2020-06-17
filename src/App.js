@@ -14,18 +14,19 @@ function App() {
       .catch(error => console.log(error));
   }, []);
 
-  function handleInputChange(event) {
+  function handleTitleChange(event) {
     const title = event.target.value;
     setTitle(title);
   }
 
   async function handleLikeRepository(id) {
-    const response = await api.post(`repositories/${id}/like`);
-    const updatedRepository = response.data;
-
     const matchedRepositoryIndex = repositories.findIndex(repo => repo.id === id);
 
     if (matchedRepositoryIndex >= 0) {
+      const response = await api.post(`repositories/${id}/like`);
+
+      const updatedRepository = response.data;
+
       const updatedRepositoryList = [...repositories];
 
       updatedRepositoryList[matchedRepositoryIndex] = updatedRepository;
@@ -59,16 +60,15 @@ function App() {
   async function handleRemoveRepository(id) {
     const repositoryIndex = repositories.findIndex(repo => repo.id === id);
 
-    if (repositoryIndex < 0) {
-      return;
+    if (repositoryIndex >= 0) {
+      const updatedRepositoryList = [...repositories];
+      
+      updatedRepositoryList.splice(repositoryIndex, 1);
+
+      setRepositories(updatedRepositoryList);
+
+      await api.delete(`repositories/${id}`);
     }
-
-    const updatedRepositoryList = [...repositories];
-    updatedRepositoryList.splice(repositoryIndex, 1);
-
-    setRepositories(updatedRepositoryList);
-
-    await api.delete(`repositories/${id}`);
   }
 
   return (
@@ -78,7 +78,7 @@ function App() {
           id="title"
           type="text"
           value={title}
-          onChange={handleInputChange}
+          onChange={handleTitleChange}
           placeholder="Repository Title"
         />
         <button onClick={handleAddRepository}>Adicionar</button>
