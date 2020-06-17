@@ -23,7 +23,7 @@
   <Strong>Componentes</Strong>: Unidades isoláveis e funcionais de JSX e estilização
   
   ```javascript
-  function App() {
+  function Header() {
       return (
         <header>
           Conteúdo do Cabeçalho
@@ -82,7 +82,7 @@
   Esse conhecimento te ajudou? 😍
 </h2>
 
-<p>
+<p align="center">
   Avalie o repositório com uma ⭐ para que mais devs possam vê-lo! 🚀
 </p>
 
